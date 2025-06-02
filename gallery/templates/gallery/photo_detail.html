@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        {% if photo.image %}
+        <img src="{{ photo.image.url }}" 
+             alt="{{ photo.title }}" 
+             class="w-full h-96 object-cover">
+        {% endif %}
+        <div class="p-6">
+            <h1 class="text-3xl font-bold mb-4">{{ photo.title }}</h1>
+            <p class="text-gray-600 mb-4">{{ photo.description }}</p>
+            <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                    Posted by {{ photo.user.username }} on {{ photo.uploaded_at|date:"F j, Y" }}
+                </div>
+                <div class="flex items-center">
+                    <button class="like-button {% if user in photo.likes.all %}text-red-500{% endif %}"
+                            data-photo-id="{{ photo.pk }}">
+                        <i class="fas fa-heart"></i>
+                        <span class="likes-count">{{ photo.total_likes }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
